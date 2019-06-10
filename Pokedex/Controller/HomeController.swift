@@ -1,5 +1,5 @@
 //
-//  MainController.swift
+//  HomeController.swift
 //  Pokedex
 //
 //  Created by Mariah Baysic on 10/06/2019.
@@ -10,8 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class MainController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var tableViewPokedex: UITableView!
+class HomeController: UITableViewController {
     
     let baseURL = "https://pokeapi.co/api/v2/"
     
@@ -22,11 +21,11 @@ class MainController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         accessPokeAPI(url: baseURL + "pokedex")
         
-        tableViewPokedex.delegate = self
-        tableViewPokedex.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "pokedexCell", for: indexPath) as? PokedexCell else { return UITableViewCell() }
         
         cell.initCell(name: arrayPokedexNames[indexPath.row])
@@ -34,7 +33,7 @@ class MainController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayPokedexNames.count
     }
     
@@ -69,7 +68,6 @@ class MainController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        tableViewPokedex.reloadData()
+        tableView.reloadData()
     }
 }
-
