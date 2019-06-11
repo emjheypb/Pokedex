@@ -12,14 +12,14 @@ import SwiftyJSON
 
 class HomeController: UITableViewController {
     
-    let baseURL = "https://pokeapi.co/api/v2/"
-    
     var arrayPokedexNames = [String]()
+    var pokedex : Pokedex?
+    var pokeAPI : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        accessPokeAPI(url: baseURL + "pokedex")
+        accessPokeAPI(url: apiURL + "pokedex")
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -37,6 +37,19 @@ class HomeController: UITableViewController {
         return arrayPokedexNames.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pokedex = Pokedex(name: arrayPokedexNames[indexPath.row], index: indexPath.row)
+        performSegue(withIdentifier: "goToPokedex", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToPokedex" {
+            let destinationVC = segue.destination as! PokedexController
+            
+            destinationVC.pokedex = pokedex
+        }
+    }
+    
     func accessPokeAPI(url: String) {
         
         Alamofire.request(url, method: .get)
@@ -48,7 +61,6 @@ class HomeController: UITableViewController {
                     print("Error: \(String(describing: response.result.error))")
                 }
         }
-        
     }
     
     func setPokedexArray(pokeJSON: JSON) {

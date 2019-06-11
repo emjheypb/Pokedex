@@ -8,5 +8,7 @@ target 'Pokedex' do
   # Pods for Pokedex
 pod 'SwiftyJSON'
 pod 'Alamofire'
+pod 'AlamofireImage'
+pod 'SVProgressHUD'
 
 end
