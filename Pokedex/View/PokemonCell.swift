@@ -13,7 +13,6 @@ import AlamofireImage
 class PokemonCell: UITableViewCell {
     @IBOutlet weak var pokemonImage: UIImageView!
     @IBOutlet weak var pokemonName: UILabel!
-    var pokemonData: Data?
     
     override func awakeFromNib() {
         super.awakeFromNib()
